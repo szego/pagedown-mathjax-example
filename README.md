@@ -5,4 +5,4 @@ Coordination between Pagedown and MathJax is based on [Davide Cervone's solution
 
 Click [here](https://szego.github.io/pagedown-mathjax-example/example.html) to see the example in action.
 
-Creation of this example was inspired by [kerzol's example for Marked + MathJax](../../../../kerzol/markdown-mathjax).
+The format of this example is based on the [the Pagedown demo](http://pagedown.googlecode.com/hg/demo/browser/demo.html). Creation of this example was inspired by [kerzol's example for Marked + MathJax](../../../../kerzol/markdown-mathjax).
