@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>PageDown with MathJax Demo Page</title>
+
+        <style type="text/css">
+            .container { width: 660px; margin-left: auto; margin-right: auto; margin-top: 30px; }
+            .wmd-button-bar { display: none; }
+            .wmd-input { width: 654px; height: 240px; }
+            .wmd-preview { margin-bottom: 40px; background-color: #eef;}
+        </style>
+
+        
+        <script type="text/javascript" src="https://pagedown.googlecode.com/hg/Markdown.Converter.js"></script>
+        <script type="text/javascript" src="https://pagedown.googlecode.com/hg/Markdown.Sanitizer.js"></script>
+        <script type="text/javascript" src="https://pagedown.googlecode.com/hg/Markdown.Editor.js"></script>
+        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full"></script>
+        <script type="text/javascript" src="MJPDEditing.js"></script>
+
+        <script>
+            MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+                tex2jax: { inlineMath: [ ["$", "$"], ["\\\\(","\\\\)"] ], displayMath: [ ["$$","$$"], ["\\[", "\\]"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno" },
+                TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+                messageStyle: "none"
+            });
+
+        </script>
+    </head>
+    
+    <body>
+        <div class="container">
+            <div id="wmd-button-bar-customsuffix" class="wmd-button-bar"></div>
+            <textarea id="wmd-input-customsuffix" class="wmd-input">
+This is the *first* editor.
+
+Just plain **Markdown**, except that the input is sanitized:
+
+<marquee>I'm the ghost from the past!</marquee>
+
+MathJax rendering is also enabled. Inline looks like $f: \mathbb R \to \mathbb C$ and displaymath looks like
+
+$$
+\int_0^\infty e^{-x^2}\,dx = \frac{\sqrt{\pi}}{2}.
+$$
+
+Some code `here`
+</textarea>
+            <div id="wmd-preview-customsuffix" class="wmd-preview"></div>
+        </div>
+
+        <div class="container">
+            <div id="wmd-button-bar-eric" class="wmd-button-bar"></div>
+            <textarea id="wmd-input-eric" class="wmd-input">
+This is the *second* editor.
+
+Also just plain **Markdown**, but the input is **NOT** sanitized:
+
+<marquee>I'm the ghost from the past!</marquee>
+
+MathJax rendering is enabled here too. Inline looks like $g: \mathbb Z \to \mathbb Q$ and displaymath looks like
+
+$$
+\frac{1}{\Gamma(z)} = z e^{\gamma z} \prod_{n=1}^{\infty} \left(1 + \frac{z}{n}\right) e^{-\frac{z}{n}}.
+$$
+
+That's it!
+</textarea>
+            <div id="wmd-preview-eric" class="wmd-preview"></div>
+        </div>
+
+
+        <script type="text/javascript">
+            (function () {
+                // first editor
+
+                var uniqueEditorSuffix = '-customsuffix';
+
+                // create a new Markdown.Converter and Markdown.Editor associated with jNode and the preview pane
+                var converter1 = Markdown.getSanitizingConverter();
+                var editor1 = new Markdown.Editor(converter1, uniqueEditorSuffix);
+
+                // coordinate mdeditor with MathJax rendering via MJPDEditing
+                var mjpd1 = new MJPD(); // create a new MJPD for each editor on the page
+                mjpd1.Editing.prepareWmdForMathJax(editor1, uniqueEditorSuffix, [["$", "$"], ["\\\\(","\\\\)"]]);
+
+                // start rendering
+                editor1.run();
+
+                // second editor
+
+                var uniqueEditorSuffix = '-eric';
+                var converter2 = new Markdown.Converter();
+                var editor2 = new Markdown.Editor(converter2, uniqueEditorSuffix);
+                var mjpd2 = new MJPD(); // create a new MJPD for each editor on the page
+                mjpd2.Editing.prepareWmdForMathJax(editor2, uniqueEditorSuffix, [["$", "$"], ["\\\\(","\\\\)"]]);
+                editor2.run();
+            })();
+        </script>
+    </body>
+</html>
