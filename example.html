@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 
 <html>
-
     <head>
         <title>PageDown with MathJax Demo Page</title>
 
@@ -26,7 +25,6 @@
                 TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
                 messageStyle: "none"
             });
-
         </script>
     </head>
     
@@ -71,7 +69,6 @@ That's it!
             <div id="wmd-preview-eric" class="wmd-preview"></div>
         </div>
 
-
         <script type="text/javascript">
             (function () {
                 // first editor
@@ -84,7 +81,7 @@ That's it!
 
                 // coordinate mdeditor with MathJax rendering via MJPDEditing
                 var mjpd1 = new MJPD(); // create a new MJPD for each editor on the page
-                mjpd1.Editing.prepareWmdForMathJax(editor1, uniqueEditorSuffix, [["$", "$"], ["\\\\(","\\\\)"]]);
+                mjpd1.Editing.prepareWmdForMathJax(editor1, uniqueEditorSuffix, [["$", "$"]]);
 
                 // start rendering
                 editor1.run();
@@ -95,7 +92,7 @@ That's it!
                 var converter2 = new Markdown.Converter();
                 var editor2 = new Markdown.Editor(converter2, uniqueEditorSuffix);
                 var mjpd2 = new MJPD(); // create a new MJPD for each editor on the page
-                mjpd2.Editing.prepareWmdForMathJax(editor2, uniqueEditorSuffix, [["$", "$"], ["\\\\(","\\\\)"]]);
+                mjpd2.Editing.prepareWmdForMathJax(editor2, uniqueEditorSuffix, [["$", "$"]]);
                 editor2.run();
             })();
         </script>
