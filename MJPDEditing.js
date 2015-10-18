@@ -250,75 +250,75 @@ function MJPD() {
             prepareWmdForMathJax: prepareWmdForMathJax
         }
     })();
-
-    //
-    //  Set up MathJax to allow canceling of typesetting, if it
-    //    doesn't already have that.
-    //
-    (function () {
-        var HUB = MathJax.Hub;
-
-        if (!HUB.Cancel) {
-
-            HUB.cancelTypeset = false;
-            var CANCELMESSAGE = "MathJax Canceled";
-
-            HUB.Register.StartupHook("HTML-CSS Jax Config", function () {
-                var HTMLCSS = MathJax.OutputJax["HTML-CSS"],
-                    TRANSLATE = HTMLCSS.Translate;
-                HTMLCSS.Augment({
-                    Translate: function (script, state) {
-                        if (HUB.cancelTypeset || state.cancelled) {
-                            throw Error(CANCELMESSAGE)
-                        }
-                        return TRANSLATE.call(HTMLCSS, script, state);
-                    }
-                });
-            });
-
-            HUB.Register.StartupHook("SVG Jax Config", function () {
-                var SVG = MathJax.OutputJax["SVG"],
-                    TRANSLATE = SVG.Translate;
-                SVG.Augment({
-                    Translate: function (script, state) {
-                        if (HUB.cancelTypeset || state.cancelled) {
-                            throw Error(CANCELMESSAGE)
-                        }
-                        return TRANSLATE.call(SVG, script, state);
-                    }
-                });
-            });
-
-            HUB.Register.StartupHook("TeX Jax Config", function () {
-                var TEX = MathJax.InputJax.TeX,
-                    TRANSLATE = TEX.Translate;
-                TEX.Augment({
-                    Translate: function (script, state) {
-                        if (HUB.cancelTypeset || state.cancelled) {
-                            throw Error(CANCELMESSAGE)
-                        }
-                        return TRANSLATE.call(TEX, script, state);
-                    }
-                });
-            });
-
-            var PROCESSERROR = HUB.processError;
-            HUB.processError = function (error, state, type) {
-                if (error.message !== CANCELMESSAGE) {
-                    return PROCESSERROR.call(HUB, error, state, type)
-                }
-                MathJax.Message.Clear(0, 0);
-                state.jaxIDs = [];
-                state.jax = {};
-                state.scripts = [];
-                state.i = state.j = 0;
-                state.cancelled = true;
-                return null;
-            };
-
-            HUB.Cancel = function () {
-                this.cancelTypeset = true;
-            };
-        }
-    })();
 }
+
+//
+//  Set up MathJax to allow canceling of typesetting, if it
+//    doesn't already have that.
+//
+(function () {
+    var HUB = MathJax.Hub;
+
+    if (!HUB.Cancel) {
+
+        HUB.cancelTypeset = false;
+        var CANCELMESSAGE = "MathJax Canceled";
+
+        HUB.Register.StartupHook("HTML-CSS Jax Config", function () {
+            var HTMLCSS = MathJax.OutputJax["HTML-CSS"],
+                TRANSLATE = HTMLCSS.Translate;
+            HTMLCSS.Augment({
+                Translate: function (script, state) {
+                    if (HUB.cancelTypeset || state.cancelled) {
+                        throw Error(CANCELMESSAGE)
+                    }
+                    return TRANSLATE.call(HTMLCSS, script, state);
+                }
+            });
+        });
+
+        HUB.Register.StartupHook("SVG Jax Config", function () {
+            var SVG = MathJax.OutputJax["SVG"],
+                TRANSLATE = SVG.Translate;
+            SVG.Augment({
+                Translate: function (script, state) {
+                    if (HUB.cancelTypeset || state.cancelled) {
+                        throw Error(CANCELMESSAGE)
+                    }
+                    return TRANSLATE.call(SVG, script, state);
+                }
+            });
+        });
+
+        HUB.Register.StartupHook("TeX Jax Config", function () {
+            var TEX = MathJax.InputJax.TeX,
+                TRANSLATE = TEX.Translate;
+            TEX.Augment({
+                Translate: function (script, state) {
+                    if (HUB.cancelTypeset || state.cancelled) {
+                        throw Error(CANCELMESSAGE)
+                    }
+                    return TRANSLATE.call(TEX, script, state);
+                }
+            });
+        });
+
+        var PROCESSERROR = HUB.processError;
+        HUB.processError = function (error, state, type) {
+            if (error.message !== CANCELMESSAGE) {
+                return PROCESSERROR.call(HUB, error, state, type)
+            }
+            MathJax.Message.Clear(0, 0);
+            state.jaxIDs = [];
+            state.jax = {};
+            state.scripts = [];
+            state.i = state.j = 0;
+            state.cancelled = true;
+            return null;
+        };
+
+        HUB.Cancel = function () {
+            this.cancelTypeset = true;
+        };
+    }
+})();
