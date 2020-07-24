@@ -1,3 +1,5 @@
+Note: This code broke long ago and is no longer being maintained.
+
 ## Pagedown + MathJax example
 A live Markdown editor example for using [Pagedown](https://code.google.com/p/pagedown/) with [MathJax](https://www.mathjax.org/).
 
